@@ -1,0 +1,36 @@
+import subprocess as sp
+import os
+print("WELCOME USER")
+ch = 'Y'
+while ch == 'Y':
+    base=input("Do you want to run basic linux command or to configure webserver?")
+    if base=="basic linux command":
+        print("PLEASE ENTER ONE OF THE FOLLOWING COMMAND TO RUN:")
+        print("""1 : cal
+2 : date
+3 : ls""")
+        x = input()
+        if x=="1":
+            output = sp.getoutput("cal")
+            print(output)
+        elif x=="2":
+            output = sp.getoutput("date")
+            print(output)
+        elif x=="3":
+            output = sp.getoutput("ls")
+            print(output)
+    elif base == "configure webserver":
+        output = sp.getoutput("yum install httpd -y")
+        print("installed")
+        webpage=input("ENTER WEBPAGE NAME:")
+        print("in progress")
+        content = input("ENTER CONTENT:")
+        savefile = open(webpage,'w')
+        savefile.write(content)
+        savefile.close()
+        op2 = sp.getoutput("mv {} /var/www/html/".format(webpage))
+        output = sp.getoutput("systemctl start httpd")
+    else:
+        print("INVALID INPUT")
+    ch = input("WOULD YOU LIKE TO CONTINUE?[Y/N]")
+
