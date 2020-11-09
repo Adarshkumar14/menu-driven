@@ -1,30 +1,47 @@
 import subprocess as sp
 import os
-print("WELCOME USER")
+print("\t--------------------WELCOME USER--------------")
 ch = 'Y'
 while ch == 'Y':
-    base=input("Do you want to run basic linux command or to configure webserver?")
-    if base=="basic linux command":
+    print("\tCHOOSE ANY OF THE BELOW OPTION:")
+    print("\tPress 1 : To run Linux basic commands")
+    print("\tPress 2 : To configure webserver")
+    base = input("\tEnter your choice: ")
+    if base=="1":
         print("PLEASE ENTER ONE OF THE FOLLOWING COMMAND TO RUN:")
         print("""1 : cal
 2 : date
 3 : ls""")
         x = input()
         if x=="1":
-            output = sp.getoutput("cal")
-            print(output)
+           res = input("\tWould you like to see calendar of particular date?[Y/N]")
+           if res == 'Y':
+               print("\tPlease type date to see")
+               date = input()
+               op = sp.getoutput("cal {}".format(date))
+               print(op)
+           else:
+                output = sp.getoutput("cal")
+                print(output)
         elif x=="2":
             output = sp.getoutput("date")
             print(output)
         elif x=="3":
             output = sp.getoutput("ls")
-            print(output)
-    elif base == "configure webserver":
+            detail = input("\tWould you like to see detailed info of all content?[Y/N]")
+            if detail == 'Y':
+                op2 = sp.getoutput("ls -l")
+                print(op2)
+            else:
+                print(output)
+
+    elif base == "2":
         output = sp.getoutput("yum install httpd -y")
-        print("installed")
-        webpage=input("ENTER WEBPAGE NAME:")
-        print("in progress")
-        content = input("ENTER CONTENT:")
+        print(output)
+        print("\tAPACHE WEBSERVER IS SUCCESSFULLY INSTALLED")
+        webpage=input("\tENTER WEBPAGE NAME: ")
+        print("\tin progress....")
+        content = input("\tENTER CONTENT: ")
         savefile = open(webpage,'w')
         savefile.write(content)
         savefile.close()
@@ -33,4 +50,3 @@ while ch == 'Y':
     else:
         print("INVALID INPUT")
     ch = input("WOULD YOU LIKE TO CONTINUE?[Y/N]")
-
